@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import Button from '../Button';
 import Input from '../Input';
 import RTE from './RTE';
+import { useNavigate } from 'react-router-dom';
 
 function PostForm({ post }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,6 +28,7 @@ function PostForm({ post }) {
         alert('Blog posted successfully!');
         setTitle('');
         setContent('');
+        navigate(`/blogs/${data.data._id}`)
       } else {
         alert(data.message || 'Failed to post blog');
       }

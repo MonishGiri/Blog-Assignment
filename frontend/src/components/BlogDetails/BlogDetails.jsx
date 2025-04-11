@@ -9,6 +9,19 @@ const BlogDetails = () => {
 
   const [blog, setBlog] = useState(null);
 
+  const formatDate = (timestamp) => {
+    const date = new Date(timestamp);
+    return date.toLocaleString('en-US', {
+      weekday: 'long',     // e.g. Friday
+      year: 'numeric',     // 2025
+      month: 'long',       // April
+      day: 'numeric',      // 11
+      hour: 'numeric',     // 3
+      minute: 'numeric',   // 45
+      hour12: true         // PM/AM format
+    });
+  };
+  
   useEffect(() => {
     const fetchBlog = async () => {
       const res = await fetch(`http://localhost:8000/api/blogs/${id}`, {
@@ -57,6 +70,10 @@ const BlogDetails = () => {
 
         <p className="text-sm text-gray-500 dark:text-gray-400 text-right">
           Author: {blog.author.fullName || blog.author.username}
+        </p>
+
+        <p className="text-sm text-gray-500 dark:text-gray-400 text-right">
+          Posted on: {formatDate(blog.author.createdAt)}
         </p>
 
         {isAuthor && (
