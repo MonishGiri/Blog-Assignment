@@ -47,9 +47,9 @@ export default function RTE({ label, value, onChange, maxLength = 500 }) {
         onEditorChange={(content, editor) => handleEditorChange(content, editor)}
       />
 
-      <p className='text-sm text-gray-400 mt-2'>
+      {/* <p className='text-sm text-gray-400 mt-2'>
         {contentLength}/{maxLength} characters
-      </p>
+      </p> */}
     </div>
   );
 }

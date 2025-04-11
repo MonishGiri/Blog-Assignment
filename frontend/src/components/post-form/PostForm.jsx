@@ -49,6 +49,7 @@ function PostForm({ post }) {
           maxLength="250"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
+          required='required'
         />
 
         {/* RTE Editor */}
@@ -57,16 +58,16 @@ function PostForm({ post }) {
           value={content}
           onChange={(value) => setContent(value)}
           maxLength={1000}
+          required='required'
         />
 
         {/* Submit Button below RTE */}
-        <Button
-          type="submit"
-          bgColor={post ? 'bg-green-500' : undefined}
-          className="w-full md:w-1/3"
-        >
-          {post ? 'Update' : 'Submit'}
-        </Button>
+        <button
+  type="submit"
+  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded w-full md:w-1/3 self-center"
+>
+  Post
+</button>
       </form>
     </div>
   );
