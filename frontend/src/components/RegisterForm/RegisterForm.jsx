@@ -10,7 +10,7 @@ const RegisterForm = () => {
   });
 
   const handleChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleRegister = async (e) => {
@@ -26,14 +26,54 @@ const RegisterForm = () => {
   };
 
   return (
-    <form onSubmit={handleRegister} className="max-w-md mx-auto p-4">
-      <h2 className="text-xl mb-4">Register</h2>
-      <input type="text" name="fullName" placeholder="Full Name" required onChange={handleChange} className="border p-2 w-full mb-3"/>
-      <input type="text" name="username" placeholder="Username" required onChange={handleChange} className="border p-2 w-full mb-3"/>
-      <input type="email" name="email" placeholder="Email" required onChange={handleChange} className="border p-2 w-full mb-3"/>
-      <input type="password" name="password" placeholder="Password" required onChange={handleChange} className="border p-2 w-full mb-3"/>
-      <button type="submit" className="bg-green-500 text-white p-2 rounded w-full">Register</button>
-    </form>
+    <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white px-4">
+      <form
+        onSubmit={handleRegister}
+        className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md"
+      >
+        <h2 className="text-2xl font-semibold mb-6 text-center">Create an Account</h2>
+
+        <input
+          type="text"
+          name="fullName"
+          placeholder="Full Name"
+          required
+          onChange={handleChange}
+          className="w-full mb-4 p-3 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          required
+          onChange={handleChange}
+          className="w-full mb-4 p-3 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          required
+          onChange={handleChange}
+          className="w-full mb-4 p-3 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+          onChange={handleChange}
+          className="w-full mb-6 p-3 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+
+        <button
+          type="submit"
+          className="w-full bg-green-600 hover:bg-green-700 transition duration-300 py-3 rounded font-semibold"
+        >
+          Register
+        </button>
+      </form>
+    </div>
   );
 };
 

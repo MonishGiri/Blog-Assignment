@@ -12,54 +12,66 @@ const LoginForm = () => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
 
-  const handleLogin =  (e) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     fetch('http://localhost:8000/api/users/login', {
-        method: 'POST', // or 'PUT', 'PATCH'
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username: credentials.username,
-          password: credentials.password
-        }),
-      })
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+      body: JSON.stringify(credentials),
+    })
       .then(response => response.json())
       .then(res => {
-        console.log('Success:', res.data.user);
-        dispatch(setUser(res.data.user))
-        navigate('/allBlogs')
+        if (res.data?.user) {
+          dispatch(setUser(res.data.user));
+          navigate('/allBlogs');
+        } else {
+          alert("Login failed. Please check your credentials.");
+        }
       })
       .catch(error => {
         console.error('Error:', error);
+        alert("Something went wrong. Try again.");
       });
   };
 
   return (
-    <form onSubmit={handleLogin} className="max-w-md mx-auto p-4">
-      <h2 className="text-xl mb-4">Login</h2>
-      <input
-        type="text"
-        name="username"
-        value={credentials.username}
-        onChange={handleChange}
-        placeholder="Username or Email"
-        className="border p-2 w-full mb-3"
-        required
-      />
-      <input
-        type="password"
-        name="password"
-        value={credentials.password}
-        onChange={handleChange}
-        placeholder="Password"
-        className="border p-2 w-full mb-3"
-        required
-      />
-      <button type="submit" className="bg-blue-500 text-white p-2 rounded w-full">
-        Login
-      </button>
-    </form>
+    <div className="flex items-center justify-center min-h-screen bg-gray-900 text-white px-4">
+      <form
+        onSubmit={handleLogin}
+        className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md"
+      >
+        <h2 className="text-2xl font-semibold mb-6 text-center">Login</h2>
+
+        <input
+          type="text"
+          name="username"
+          value={credentials.username}
+          onChange={handleChange}
+          placeholder="Username or Email"
+          className="w-full mb-4 p-3 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          value={credentials.password}
+          onChange={handleChange}
+          placeholder="Password"
+          className="w-full mb-6 p-3 rounded bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          required
+        />
+
+        <button
+          type="submit"
+          className="w-full bg-blue-600 hover:bg-blue-700 transition duration-300 py-3 rounded font-semibold"
+        >
+          Login
+        </button>
+      </form>
+    </div>
   );
 };
 

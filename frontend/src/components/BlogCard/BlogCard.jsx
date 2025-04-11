@@ -4,13 +4,19 @@ import { useNavigate } from 'react-router-dom';
 const BlogCard = ({ blog }) => {
   const navigate = useNavigate();
 
+  const handleClick = () => {
+    navigate(`/blogs/${blog._id}`);
+  };
+
   return (
     <div
-      className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-md hover:shadow-lg cursor-pointer transition"
-      onClick={() => navigate(`/blogs/${blog.id}`)}
+      onClick={handleClick}
+      className="cursor-pointer bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden hover:scale-105 transition-transform"
     >
-      <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-2">{blog.title}</h2>
-      <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-3">{blog.content}</p>
+      <div className="p-4">
+        <h2 className="text-xl font-semibold text-gray-800 dark:text-white">{blog.title}</h2>
+        <p className="text-gray-600 dark:text-gray-300 mt-2 line-clamp-3"  dangerouslySetInnerHTML={{ __html: blog.content }}></p>
+      </div>
     </div>
   );
 };

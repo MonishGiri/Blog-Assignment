@@ -7,47 +7,66 @@ function PostForm({ post }) {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle submit logic here
-    console.log({ title, content });
+
+    try {
+      const res = await fetch('http://localhost:8000/api/blogs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ title, content }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert('Blog posted successfully!');
+        setTitle('');
+        setContent('');
+      } else {
+        alert(data.message || 'Failed to post blog');
+      }
+    } catch (err) {
+      console.error('Error posting blog:', err);
+      alert('Something went wrong!');
+    }
   };
 
   return (
     <div className="flex justify-center items-center p-4">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-4xl flex flex-col md:flex-row gap-6 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md"
+        className="w-full max-w-4xl flex flex-col gap-6 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md"
       >
-        {/* Left Section - Title and RTE */}
-        <div className="w-full md:w-2/3 space-y-4">
-          <Input
-            label="Title:"
-            placeholder="Enter the title"
-            className="w-full"
-            maxLength="250"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
+        {/* Title Input */}
+        <Input
+          label="Title:"
+          placeholder="Enter the title"
+          className="w-full"
+          maxLength="250"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
 
-          <RTE
-            label="Content:"
-            value={content}
-            onChange={(value) => setContent(value)}
-            maxLength={1000}
-          />
-        </div>
+        {/* RTE Editor */}
+        <RTE
+          label="Content:"
+          value={content}
+          onChange={(value) => setContent(value)}
+          maxLength={1000}
+        />
 
-        {/* Right Section - Submit Button */}
-        <div className="w-full md:w-1/3 flex flex-col justify-start items-center gap-4">
-          <Button
-            type="submit"
-            bgColor={post ? 'bg-green-500' : undefined}
-            className="w-full"
-          >
-            {post ? 'Update' : 'Submit'}
-          </Button>
-        </div>
+        {/* Submit Button below RTE */}
+        <Button
+          type="submit"
+          bgColor={post ? 'bg-green-500' : undefined}
+          className="w-full md:w-1/3"
+        >
+          {post ? 'Update' : 'Submit'}
+        </Button>
       </form>
     </div>
   );
