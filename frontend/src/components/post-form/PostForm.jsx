@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import Button from '../Button';
 import Input from '../Input';
 import RTE from './RTE';
 import { useNavigate } from 'react-router-dom';
 
-function PostForm({ post }) {
+function PostForm() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const navigate = useNavigate()
@@ -22,7 +21,9 @@ function PostForm({ post }) {
         body: JSON.stringify({ title, content }),
       });
 
+
       const data = await res.json();
+      console.log('data is: ',data)
 
       if (res.ok) {
         alert('Blog posted successfully!');
@@ -60,14 +61,14 @@ function PostForm({ post }) {
           label="Content:"
           value={content}
           onChange={(value) => setContent(value)}
-          maxLength={1000}
+          maxLength={10000}
           required='required'
         />
 
         {/* Submit Button below RTE */}
         <button
   type="submit"
-  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded w-full md:w-1/3 self-center"
+  className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded w-full md:w-1/3 self-center cursor-pointer"
 >
   Post
 </button>

@@ -5,6 +5,7 @@ import {Blog} from "../models/blog.model.js"
 
 const createBlog = asyncHandler(async (req, res) => {
     const { title, content } = req.body;
+    console.log("User from JWT:", req.user);
     const author = req.user._id;
     if(!title || !content) {
         throw new ApiError(400, "Title and content are required")

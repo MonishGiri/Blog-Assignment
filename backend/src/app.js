@@ -18,10 +18,12 @@ app.use(cookieParser())
 
 import userRouter from "./routes/user.routes.js"
 import blogRouter from "./routes/blog.routes.js"
+import uploadImageRouter from './routes/uploadImage.routes.js'
 
 // // routes declaration
 app.use("/api/users" , userRouter)
 app.use("/api/blogs" , blogRouter)
+app.use("/api/upload-image", uploadImageRouter)
 
 
 export {app}
